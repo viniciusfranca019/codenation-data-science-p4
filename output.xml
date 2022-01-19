@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="7" time="1.643" timestamp="2022-01-18T22:40:02.118068" hostname="pop-os"><testcase classname="test_submit" name="test_q1" time="0.001" /><testcase classname="test_submit" name="test_q2" time="0.002" /><testcase classname="test_submit" name="test_q3" time="0.001"><failure message="assert None == False&#10;  +None&#10;  -False">E   assert None == False
+      +None
+      -False</failure></testcase><testcase classname="test_submit" name="test_q4" time="0.000"><failure message="assert None == False&#10;  +None&#10;  -False">E   assert None == False
+      +None
+      -False</failure></testcase><testcase classname="test_submit" name="test_q5" time="0.000"><failure message="assert None == False&#10;  +None&#10;  -False">E   assert None == False
+      +None
+      -False</failure></testcase><testcase classname="test_submit" name="test_q6" time="0.000"><failure message="assert None == True&#10;  +None&#10;  -True">E   assert None == True
+      +None
+      -True</failure></testcase><testcase classname="test_submit" name="test_q7" time="0.000"><failure message="assert None == 0.00046601&#10;  +None&#10;  -0.00046601">E   assert None == 0.00046601
+      +None
+      -0.00046601</failure></testcase></testsuite></testsuites>
