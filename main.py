@@ -11,7 +11,7 @@
 
 # ## _Setup_ geral
 
-# In[31]:
+# In[362]:
 
 
 import pandas as pd
@@ -19,9 +19,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats as sct
 import seaborn as sns
+import math
 
 
-# In[32]:
+# In[363]:
 
 
 # %matplotlib inline
@@ -34,13 +35,13 @@ import seaborn as sns
 # sns.set()
 
 
-# In[33]:
+# In[364]:
 
 
 athletes = pd.read_csv("athletes.csv")
 
 
-# In[34]:
+# In[365]:
 
 
 def get_sample(df, col_name, n=100, seed=42):
@@ -76,7 +77,7 @@ def get_sample(df, col_name, n=100, seed=42):
 
 # ## Inicia sua análise a partir daqui
 
-# In[35]:
+# In[366]:
 
 
 # Sua análise começa aqui.
@@ -86,7 +87,7 @@ def get_sample(df, col_name, n=100, seed=42):
 # 
 # Considerando uma amostra de tamanho 3000 da coluna `height` obtida com a função `get_sample()`, execute o teste de normalidade de Shapiro-Wilk com a função `scipy.stats.shapiro()`. Podemos afirmar que as alturas são normalmente distribuídas com base nesse teste (ao nível de significância de 5%)? Responda com um boolean (`True` ou `False`).
 
-# In[36]:
+# In[367]:
 
 
 def q1():
@@ -109,7 +110,7 @@ q1()
 # 
 # Repita o mesmo procedimento acima, mas agora utilizando o teste de normalidade de Jarque-Bera através da função `scipy.stats.jarque_bera()`. Agora podemos afirmar que as alturas são normalmente distribuídas (ao nível de significância de 5%)? Responda com um boolean (`True` ou `False`).
 
-# In[37]:
+# In[368]:
 
 
 def q2():
@@ -129,12 +130,16 @@ q2()
 # 
 # Considerando agora uma amostra de tamanho 3000 da coluna `weight` obtida com a função `get_sample()`. Faça o teste de normalidade de D'Agostino-Pearson utilizando a função `scipy.stats.normaltest()`. Podemos afirmar que os pesos vêm de uma distribuição normal ao nível de significância de 5%? Responda com um boolean (`True` ou `False`).
 
-# In[38]:
+# In[369]:
 
 
 def q3():
-    # Retorne aqui o resultado da questão 3.
-    pass
+    sample = get_sample(df = athletes, col_name="weight", n=3000)
+    test_result = sct.normaltest(sample)
+    if test_result.pvalue < 0.05:
+        return False
+    return True
+q3()
 
 
 # __Para refletir__:
@@ -146,12 +151,17 @@ def q3():
 # 
 # Realize uma transformação logarítmica em na amostra de `weight` da questão 3 e repita o mesmo procedimento. Podemos afirmar a normalidade da variável transformada ao nível de significância de 5%? Responda com um boolean (`True` ou `False`).
 
-# In[39]:
+# In[370]:
 
 
 def q4():
-    # Retorne aqui o resultado da questão 4.
-    pass
+    sample = get_sample(df = athletes, col_name="weight", n=3000)
+    log_sample = np.log(sample)
+    test_result = sct.normaltest(log_sample)
+    if test_result.pvalue < 0.05:
+        return False
+    return True
+q4()
 
 
 # __Para refletir__:
@@ -165,31 +175,45 @@ def q4():
 # 
 # Obtenha todos atletas brasileiros, norte-americanos e canadenses em `DataFrame`s chamados `bra`, `usa` e `can`,respectivamente. Realize um teste de hipóteses para comparação das médias das alturas (`height`) para amostras independentes e variâncias diferentes com a função `scipy.stats.ttest_ind()` entre `bra` e `usa`. Podemos afirmar que as médias são estatisticamente iguais? Responda com um boolean (`True` ou `False`).
 
-# In[40]:
+# In[371]:
 
+
+bra = athletes[(athletes["nationality"] == "BRA")]
+usa = athletes[(athletes["nationality"] == "USA")]
+can = athletes[(athletes["nationality"] == "CAN")]
 
 def q5():
-    # Retorne aqui o resultado da questão 5.
-    pass
+    sample_1 = get_sample(df = bra, col_name="height", n=400)
+    sample_2 = get_sample(df = usa, col_name="height", n=400)
+    test_result = sct.ttest_ind(sample_1, sample_2)
+    if test_result.pvalue < 0.05:
+        return False
+    return True
+q5()
 
 
 # ## Questão 6
 # 
 # Repita o procedimento da questão 5, mas agora entre as alturas de `bra` e `can`. Podemos afimar agora que as médias são estatisticamente iguais? Reponda com um boolean (`True` ou `False`).
 
-# In[41]:
+# In[372]:
 
 
 def q6():
-    # Retorne aqui o resultado da questão 6.
-    pass
+    sample_1 = get_sample(df = bra, col_name="height", n=300)
+    sample_2 = get_sample(df = can, col_name="height", n=300)
+    test_result = sct.ttest_ind(sample_1, sample_2)
+    if test_result.pvalue < 0.05:
+        return False
+    return True
+q6()
 
 
 # ## Questão 7
 # 
 # Repita o procedimento da questão 6, mas agora entre as alturas de `usa` e `can`. Qual o valor do p-valor retornado? Responda como um único escalar arredondado para oito casas decimais.
 
-# In[42]:
+# In[373]:
 
 
 def q7():
